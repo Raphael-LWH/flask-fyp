@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if nd_cat == 'None' %}
+        {{ title }} - {{ st_cat }}
+    {% else %}
+        {{ title }} - {{ nd_cat }}
+    {% endif %}
+{% endblock %}
+
+{% block current_app_content %}
+        {% if table == 'TF' %}
+            {% include 'TFocus/TF.html' %}
+        {% elif table == 'NET' %}
+            {% include 'Network/Network.html' %}
+        {% elif table == 'ANI' %}
+            {% include 'animax/anime.html' %}
+        {% elif table == 'EVA' %}
+            {% include 'evaluation/evaluation.html' %}
+        {% elif table == 'ITT' %}
+            {% include 'itt/itt.html' %}
+        {% elif table == 'RW' %}
+            {% include 'reward/reward.html' %}
+        {% elif table == 'SP' %}
+            {% include 'special/special.html' %}
+        {% else %}
+            {% include 'video/video.html' %}
+        {% endif %}
+{% endblock %}

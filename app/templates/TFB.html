@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ title }} - {{ content }}
+{% endblock %}
+
+{% block current_app_content %}
+    <div class="container">
+        <div class="row">
+            <div class="text-center banner-ads">
+                {% for ad in ads %}
+                    <a href="{{ ad.url }}">
+                        <img src="{{ url_for('static', filename=ad.picture_name) }}" />
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="article">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2>{{ content }}</h2>
+                        </div>
+                    </div>
+                    <div class="content" style="word-wrap: break-word;">
+                        <figure>
+                            <img src="{{ url_for('static', filename=picture) }}" class="img-responsive"
+                                 style="margin-left:auto;margin-right:auto" />
+                        </figure>
+                        <div class="col-md-12 text-center banner-ads">
+                            {% for ad in ads %}
+                                <a href="{{ ad.url }}">
+                                    <img src="{{ url_for('static', filename=ad.picture_name) }}"
+                                    style="max-width: 700px" />
+                                </a>
+                            {% endfor %}
+                        </div>
+                        {% if table == '熱門影片' %}
+                        {% for one in body %}
+                        {% if one.nd_con == None %}
+                            {% for element in one.EX.content.splitlines() %}
+                                <p>{{ element }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p>
+                                {{ one.EX.content }}
+                            </p>
+                            <ul>
+                                {% for element in one.nd_con.splitlines() %}
+                                    <li>{{ element }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% for one in hot %}
+                                <iframe src="{{ one.vdo_link }}"
+                                        width="476" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>
+                            {% endfor %}
+                            {% for element in one.rd_con.splitlines() %}
+                                <p>{{ element }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        {% for one in body %}
+                        {% if one.nd_con == None %}
+                            {% for element in one.EX.content.splitlines() %}
+                                <p>{{ element }}</p>
+                            {% endfor %}
+                        {% else %}
+                            <p>
+                                {{ one.EX.content }}
+                            </p>
+                            <ul>
+                                {% for element in one.nd_con.splitlines() %}
+                                    <li>{{ element }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% for element in one.rd_con.splitlines() %}
+                                <p>{{ element }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        {% if table == '科技焦點' %}
+                            {% for new in news %}
+                                <p>
+                                    【相關報道】
+                                    <a href="{{ url_for(new.TF.url, picture=new.picture_name, content=new.TF.title) }}">{{ new.TF.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% elif table == '熱門影片' %}
+                            {% for new in news %}
+                                <p>
+                                    【相關報道】
+                                    <a href="{{ url_for(new.VDO.url, picture=new.picture_name, content=new.VDO.title) }}">{{ new.VDO.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% elif table == '網絡生活' %}
+                            {% for new in news %}
+                                <p>
+                                    【相關報道】
+                                    <a href="{{ url_for(new.NET.url, picture=new.picture_name, content=new.NET.title) }}">{{ new.NET.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% elif table == '遊戲動漫' %}
+                            {% for new in news %}
+                                <p>
+                                    【相關報道】
+                                    <a href="{{ url_for(new.ANI.url, picture=new.picture_name, content=new.ANI.title) }}">{{ new.ANI.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% elif table == '教學評測' %}
+                            {% for new in news %}
+                                <p>
+                                    【相關報道】
+                                    <a href="{{ url_for(new.EVA.url, picture=new.picture_name, content=new.EVA.title) }}">{{ new.EVA.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% elif table == 'IT Times' %}
+                            {% for new in news %}
+                                <p>
+                                    【相關報道】
+                                    <a href="{{ url_for(new.ITT.url, picture=new.picture_name, content=new.ITT.title) }}">{{ new.ITT.title }}</a>
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="text-center banner-ads">
+                            {% for ad in ads %}
+                                <a href="{{ ad.url }}">
+                                    <img src="{{ url_for('static', filename=ad.picture_name) }}"
+                                    style="max-width: 700px" />
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="visible-md visible-lg banner-ads">
+                            <div class="center-block">
+                                <div style="border: 0pt none; display: inline-block; width: 300px; height: 600px;">
+                                    {% for ad in adsb %}
+                                        <a href="{{ ad.url }}" target="_blank">
+                                            <img src="{{ url_for('static', filename=ad.picture_name) }}" width="300" height="600" />
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2>{{ _('最新內容') }}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <div class="list-group">
+                            {% for new in all %}
+                                <button type="button" class="list-group-item" onclick="{{ new.url }}">
+                                    {{ new.title }}
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="visible-md visible-lg banner-ads">
+                            <div class="center-block">
+                                <div style="border: 0pt none; display: inline-block; width: 300px; height: 600px;">
+                                    {% for ad in adsb %}
+                                        <a href="{{ ad.url }}" target="_blank">
+                                            <img src="{{ url_for('static', filename=ad.picture_name) }}" width="300" height="600" />
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="visible-md visible-lg banner-ads">
+                            <div class="center-block">
+                                <div style="border: 0pt none; display: inline-block; width: 300px; height: 600px;">
+                                    {% for ad in adsb %}
+                                        <a href="{{ ad.url }}" target="_blank">
+                                            <img src="{{ url_for('static', filename=ad.picture_name) }}" width="300" height="600" />
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
